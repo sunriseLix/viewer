@@ -5,7 +5,7 @@
         :content="item.text"
         v-for="item in buttons"
         :key="item.id">
-        <Button :class="{active: active === item.id}">
+        <Button :class="{active: operate.id === item.id}" @click="handleClickTool(item)">
           <i class="iconfont" :class="item.icon"></i>
         </Button><span :class="{borderR: item.borderR}"></span>
       </Tooltip>
@@ -18,6 +18,16 @@ export default {
   data () {
     return {
       buttons
+    }
+  },
+  computed: {
+    operate () {
+      return this.$store.getters.getOperate
+    }
+  },
+  methods: {
+    handleClickTool (item) {
+      this.$store.commit('SAVE_OPERATE', item)
     }
   }
 }
