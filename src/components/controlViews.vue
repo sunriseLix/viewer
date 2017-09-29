@@ -21,6 +21,5 @@ export default {
 .controlViews{
   width: 296px;
   height: 100%;
-  background:red;
 }
 </style>

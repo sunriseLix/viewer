@@ -17,15 +17,15 @@ export const layoutImage = [{
   val: '11',
   icon: 'icon-tubiao-1'
 }, {
-  type: 's',
+  type: 'i',
   val: '12',
   icon: 'icon-tubiao-'
 }, {
-  type: 's',
+  type: 'i',
   val: '22',
   icon: 'icon-tubiao-2'
 }, {
-  type: 's',
+  type: 'i',
   val: '33',
   icon: 'icon-tubiao-4'
 }]

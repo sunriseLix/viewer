@@ -1,5 +1,7 @@
 <template>
   <div class="views">
+    <input type="file" id="selectFiles" multiple @change="selectFiles">
+
     <section
       class="views-series" 
       v-for="val in seriesMsg.size" 
@@ -7,18 +9,21 @@
       :key="`series-${val}`"
       :class="{active: `series-${val}` === active.series}"
       @click="handleActiveSeries(`series-${val}`)">
-      <section 
+      <section
         class="views-image" 
         v-for="val in imageMsg.size"
         :style="{width: imageMsg.width, height: imageMsg.height}"
         :key="`image-${val}`"
         :class="{active: `image-${val}` === active.image}"
-        @click="handleActiveImage(`image-${val}`)"></section>
+        @click="handleActiveImage(`image-${val}`)">
+        <cross :imageIds="imageIds"/>
+      </section>
     </section>
   </div>
 </template>
 
 <script>
+/* eslint-disable no-undef */
 import cross from './views/cross'
 import { mapGetters } from 'vuex'
 export default {
@@ -28,6 +33,7 @@ export default {
   },
   data () {
     return {
+      imageIds: [],
       active: {
         series: '11',
         image: '11'
@@ -59,6 +65,14 @@ export default {
     })
   },
   methods: {
+    selectFiles (e) {
+      this.imageIds = []
+      let files = e.target.files
+      Array.from(files, file => {
+        var imageId = cornerstoneWADOImageLoader.fileManager.add(file)
+        this.imageIds.push(imageId)
+      })
+    },
     handleActiveSeries (item) {
       console.log(item)
       this.active.series = item
@@ -75,11 +89,17 @@ export default {
 .views {
   width: 100%;
   height: 100%;
+  position: relative;
+  #selectFiles {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
   .views-series, .views-image{
     border: 1px solid #ccc;
     display: inline-block;
   }
-  .views-series.active{
+  .views-series.active, .views-image.active{
     border: 1px solid #408ee6;
   }
 }

@@ -7,7 +7,7 @@
           :class="{actve: activeSeries === item.val}"
           v-for="item in layoutSeries" 
           :key="item.val"
-          @click="handleClickSeries(item)">
+          @click="handleClickLayout(item)">
          <i :class="item.icon" class="iconfont"></i>
         </Button>
       </ButtonGroup>
@@ -19,7 +19,7 @@
         :class="{actve: activeImage === item.val}"
          v-for="item in layoutImage" 
          :key="item.val"
-         @click="handleClickImage(item)">
+         @click="handleClickLayout(item)">
          <i :class="item.icon" class="iconfont"></i>
         </Button>
       </ButtonGroup>
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+/* eslint-disable no-undef */
 import {layoutSeries, layoutImage} from '@/assets/data/layout'
 import { mapGetters } from 'vuex'
 export default {
@@ -45,11 +46,9 @@ export default {
     })
   },
   methods: {
-    handleClickSeries (item) {
-      this.$store.commit('SAVE_LAYOUT_SERIES', item.val)
-    },
-    handleClickImage (item) {
-      this.$store.commit('SAVE_LAYOUT_IMAGE', item.val)
+    handleClickLayout (item) {
+      if (item.type === 's') this.$store.commit('SAVE_LAYOUT_SERIES', item.val)
+      if (item.type === 'i') this.$store.commit('SAVE_LAYOUT_IMAGE', item.val)
     }
   }
 }
